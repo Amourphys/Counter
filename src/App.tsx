@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+import CounterOne from './components/CounterOne/CounterOne';
+import CounterTwo from './components/CounterTwo/CounterTwo';
+import CounterThree from "./components/CounterThree/CounterThree";
+import Navigation from './navigation/Navigation';
 import './App.css';
 
+export const PATH = {
+    C1: { link: "/c1", name: "counter 1" },
+    C2: { link: "/c2", name: "counter 2" },
+    C3: { link: "/c3", name: "counter 3" },
+}
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <div className="container">
+            <HashRouter>
+                <Navigation />
+                <Routes>
+                    <Route path={PATH.C1.link} element={<CounterOne />} />
+                    <Route path={PATH.C2.link} element={<CounterTwo />} />
+                    <Route path={PATH.C3.link} element={<CounterThree />} />
+                    <Route path={"*"} element={<Navigate to={PATH.C1.link} />} />
+                </Routes>
+            </HashRouter>
+        </div>
+    );
 }
 
 export default App;

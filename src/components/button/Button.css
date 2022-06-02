@@ -1,0 +1,19 @@
+.default-button {
+    font-size: 30px;
+    width: 100px;
+    height: 40px;
+    background-color: teal;
+    color: aquamarine;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.danger-button {
+    color: red;
+    font-size: 30px;
+    width: 100px;
+    height: 40px;
+    background-color: teal;
+    border-radius: 5px;
+    cursor: pointer;
+}

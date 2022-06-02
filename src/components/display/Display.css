@@ -1,0 +1,20 @@
+.default-display {
+    height: 200px;
+    width: 300px;
+    background-color: antiquewhite;
+    border: 3px solid #555636;
+    border-radius: 10px;
+    color: aqua;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.danger {
+    color: red;
+}
+
+.default {
+    color: aqua;
+}
