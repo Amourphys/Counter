@@ -18,9 +18,9 @@ function App() {
             <HashRouter>
                 <Navigation />
                 <Routes>
-                    <Route path={PATH.C1.link} element={<CounterOne />} />
-                    <Route path={PATH.C2.link} element={<CounterTwo />} />
-                    <Route path={PATH.C3.link} element={<CounterThree />} />
+                    <Route path={PATH.C1.link} element={<CounterOne startValue={0} maxValue={5} />} />
+                    <Route path={PATH.C2.link} element={<CounterTwo startValue={0} maxValue={5} />} />
+                    <Route path={PATH.C3.link} element={<CounterThree startValue={0} maxValue={5} />} />
                     <Route path={"*"} element={<Navigate to={PATH.C1.link} />} />
                 </Routes>
             </HashRouter>

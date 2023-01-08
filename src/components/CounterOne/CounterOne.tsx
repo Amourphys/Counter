@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../button/Button';
 import Display from '../display/Display';
 import s from './CounterOne.module.css';
 
-const CounterOne = () => {
+type CounterOnePropsType = {
+    startValue: number
+    maxValue: number
+}
 
-    const [count, setCount] = useState(0)
+const CounterOne = (props: CounterOnePropsType) => {
+
+    const [count, setCount] = useState<number>(0)
+
+    useEffect(() => {
+        const value = localStorage.getItem('value')
+
+        if (!value) {
+            return
+        }
+
+        const parseValue = JSON.parse(value)
+
+        setCount(parseValue.count)
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('value', JSON.stringify({ count }))
+    }, [count])
 
     const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         setCount(count + 1)
     }
     const onClickReset = (e: React.MouseEvent<HTMLButtonElement>) => {
-        setCount(0)
+        setCount(props.startValue)
     }
 
     return (
@@ -19,16 +40,16 @@ const CounterOne = () => {
             <div className={s.display}>
                 <Display
                     title={count}
-                    className={count >= 5/* || count === 0*/ ? 'danger' : 'default'}
+                    className={count >= 5 /* || count === 0*/ ? 'danger' : 'default'}
                 />
             </div>
             <div className={s.buttons}>
-                <Button title={'Add'}
+                <Button title={'inc'}
                     onClick={onClickHandler}
                     disabled={count >= 5}
                     className={count >= 5 ? 'danger-button' : 'default-button'}
                 />
-                <Button title={'Reset'}
+                <Button title={'reset'}
                     onClick={onClickReset}
                     disabled={count === 0}
                     className={count === 0 ? 'danger-button' : 'default-button'}

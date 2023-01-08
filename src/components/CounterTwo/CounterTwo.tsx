@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../button/Button';
 import Display from '../display/Display';
 import Input from '../input/Input';
@@ -7,22 +7,35 @@ import s from './CounterTwo.module.css';
 type CounterTwoPropsType = {
     startValue: number
     maxValue: number
-    value?: number
-    name?: string
 }
 
-const CounterTwo = () => {
+const CounterTwo = (props: CounterTwoPropsType) => {
 
     const [startValue, setStartValue] = useState<number>(0)
     const [maxValue, setMaxValue] = useState<number>(0)
-    const [currentValue, setCurrentValue] = useState<number>(0)
     const [count, setCount] = useState<number | null>(null)
     const [error, setError] = useState<boolean | string>(false)
-    const [error2, setError2] = useState<string>('')
 
+    useEffect(() => {
+        const value = localStorage.getItem('value')
+
+        if (!value) {
+            return
+        }
+
+        const parseValue = JSON.parse(value)
+
+        setCount(parseValue.count)
+        setError(parseValue.error)
+        setStartValue(parseValue.startValue)
+        setMaxValue(parseValue.maxValue)
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('value', JSON.stringify({ count }))
+    }, [count, error, startValue, maxValue])
 
     const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-
         if (count) {
             setCount(count + 1)
         }
@@ -32,7 +45,6 @@ const CounterTwo = () => {
     }
     const onSetClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         console.log(startValue);
-
         setCount(startValue)
     }
     const onChangeStartValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +90,7 @@ const CounterTwo = () => {
                     </label>
                 </div>
                 <div className={s.buttons}>
-                    <Button title={'Set'}
+                    <Button title={'set'}
                         onClick={onSetClickHandler}
                         disabled={maxValue < 0 || startValue < 0 || maxValue < startValue}
                         className={'default-button'}
@@ -94,12 +106,12 @@ const CounterTwo = () => {
                     />
                 </div>
                 <div className={s.buttons}>
-                    <Button title={'Add'}
+                    <Button title={'inc'}
                         onClick={onClickHandler}
                         disabled={count === null || count === maxValue}
                         className={count && count >= maxValue ? 'danger-button' : 'default-button'}
                     />
-                    <Button title={'Reset'}
+                    <Button title={'reset'}
                         onClick={onClickReset}
                         disabled={count ? false : true}
                         className={count === maxValue ? 'danger-button' : 'default-button'}

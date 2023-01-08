@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import s from './Input.module.css';
 
 export type InputPropsType = {
-    value?: number
+    value: number
     startValue: number
     onChangeStartValue?: (e: React.ChangeEvent<HTMLInputElement>) => void
     onChangeMaxValue?: (e: React.ChangeEvent<HTMLInputElement>) => void
