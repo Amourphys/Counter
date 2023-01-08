@@ -58,7 +58,6 @@ const CounterThree = (props: CounterThreePropsType) => {
     }
 
     const onChangeStartValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-
         const value = +e.currentTarget.value
         if (value < 0 || maxValue < 0 || maxValue < startValue) {
             setError('Enter a correct number')
@@ -70,7 +69,6 @@ const CounterThree = (props: CounterThreePropsType) => {
     }
 
     const onChangeMaxValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-
         const value = +e.currentTarget.value
         if (startValue < 0 || 0 > value || startValue > maxValue) {
             setError('Enter a correct number')
@@ -81,11 +79,10 @@ const CounterThree = (props: CounterThreePropsType) => {
     }
 
     const onClearHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const value = +e.currentTarget.value
 
-        if (startValue && maxValue > 0) {
-            return
-        }
-        setCount(0)
+        setStartValue(value)
+        setMaxValue(value)
     }
 
     return (
